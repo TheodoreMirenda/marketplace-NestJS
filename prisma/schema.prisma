@@ -23,7 +23,6 @@ model User {
   id Int @id @default(autoincrement())
 
   avatar String
-  passwordHash String
   orders Order[] //1:M
 }
 

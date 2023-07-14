@@ -25,12 +25,9 @@ export class User {
   username?: string;
 
   @Field(() => String, { nullable: true })
-  passwordHash?: string;
-
-  @Field(() => String, { nullable: true })
   avatar?: string;
 
-  @Field(() => Order, { nullable: true })
+  @Field(() => String, { nullable: true })
   orders?: Order[];
 
   @Field(() => Date, { nullable: true })

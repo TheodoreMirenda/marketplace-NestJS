@@ -29,4 +29,7 @@ export class UserCreateInput {
   @MaxLength(60)
   @Field(() => String)
   lastName: string;
+
+  @Field(() => String)
+  avatar: string;
 }

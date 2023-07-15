@@ -29,10 +29,12 @@ model User {
 model Vendor {
   id Int @id @default(autoincrement())
   uuid String @unique
+
   vendorName String @unique
   email String @unique
   avatar String
   passwordHash String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   type Role @default(VENDOR)
@@ -61,12 +63,14 @@ model Vendor_Product {
 model Product {
   id Int @id @default(autoincrement())
   uuid String @unique
+
   name String
+  description String
+  images String[]
+  price Float
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  images String[]
-  description String
-  price Float
 
   categoryId Int @map("category_id")
   category Category @relation(fields: [categoryId], references: [id])
@@ -80,6 +84,7 @@ model Product {
 model Category {
   id Int @id @default(autoincrement())
   uuid String @unique
+  
   name String
   products Product[]
   vendorProducts Vendor_Product[]//1:M

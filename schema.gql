@@ -10,15 +10,12 @@ type User {
   firstName: String
   lastName: String
   username: String
-  avatar: String
-  orders: String
   createdAt: DateTime
   updatedAt: DateTime
 }
 
 enum Role {
   USER
-  VENDOR
   ADMIN
 }
 
@@ -33,45 +30,31 @@ type LoginOutput {
   user: User!
 }
 
-type Category {
-  id: Float
-  uuid: String
-  name: String
-  orders: String
-}
-
-type Vendor {
-  id: Float
-  uuid: String
-  email: String
-  type: Role
-  firstName: String
-  lastName: String
-  username: String
-  passwordHash: String
-  avatar: String
-  orders: String
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-type Product {
+type Movie {
   id: Float
   uuid: String
   name: String
   description: String
-  images: String
-  price: String
-  orders: String
+  images: [String!]
   createdAt: DateTime
   updatedAt: DateTime
+  genreId: Float
+  genre: Genre
+}
+
+type Genre {
+  id: Float
+  uuid: String
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  movies: [Movie!]
 }
 
 type Query {
   user(where: UserWhereUniqueInput!): User
-  category(where: CategoryWhereUniqueInput!): Category
-  vendor(where: VendorWhereUniqueInput!): Vendor
-  Product(where: ProductWhereUniqueInput!): Product
+  genres: [Genre!]!
+  movies(skip: Int, take: Int, cursor: MovieWhereUniqueInput, orderBy: MovieOrderByInput, where: MovieWhereInput, search: SearchInput): [Movie!]!
 }
 
 input UserWhereUniqueInput {
@@ -80,31 +63,44 @@ input UserWhereUniqueInput {
   email: String
 }
 
-input CategoryWhereUniqueInput {
+input MovieWhereUniqueInput {
+  id: Int
   uuid: String
-  username: String
-  email: String
 }
 
-input VendorWhereUniqueInput {
-  uuid: String
-  username: String
-  email: String
+input MovieOrderByInput {
+  id: OrderByArg
+  uuid: OrderByArg
+  name: OrderByArg
+  description: OrderByArg
+  createdAt: OrderByArg
+  updatedAt: OrderByArg
 }
 
-input ProductWhereUniqueInput {
+enum OrderByArg {
+  ASC
+  DESC
+}
+
+input MovieWhereInput {
+  id: Int
   uuid: String
-  username: String
-  email: String
+  name: String
+  description: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input SearchInput {
+  value: String!
 }
 
 type Mutation {
   login(data: LoginUserInput!): LoginOutput!
   signup(data: SignUpInput!): User!
   createUser(data: UserCreateInput!): User!
-  createCategory(data: CategoryCreateInput!): Category!
-  createVendor(data: VendorCreateInput!): Vendor!
-  createProduct(data: ProductCreateInput!): Product!
+  createGenre(data: GenreCreateInput!): Genre!
+  createMovie(data: MovieCreateInput!): Movie!
 }
 
 input LoginUserInput {
@@ -118,7 +114,6 @@ input SignUpInput {
   password: String!
   firstName: String!
   lastName: String!
-  avatar: String!
 }
 
 input UserCreateInput {
@@ -128,29 +123,15 @@ input UserCreateInput {
   password: String!
   firstName: String!
   lastName: String!
-  avatar: String!
 }
 
-input CategoryCreateInput {
-  vendorName: String!
-  email: String!
-  avatar: String!
-  passwordHash: String!
+input GenreCreateInput {
+  name: String!
 }
 
-input VendorCreateInput {
-  vendorName: String!
-  email: String!
-  avatar: String!
-  passwordHash: String!
-}
-
-input ProductCreateInput {
-  type: Role!
-  email: String!
-  username: String!
-  password: String!
-  firstName: String!
-  lastName: String!
-  avatar: String!
+input MovieCreateInput {
+  name: String!
+  description: String
+  images: [String!]!
+  genreId: Float!
 }

@@ -21,93 +21,134 @@ model User {
 
   type Role @default(USER)
   id Int @id @default(autoincrement())
-
-  avatar String
-  orders Order[] //1:M
 }
 
-model Vendor {
-  id Int @id @default(autoincrement())
-  uuid String @unique
-
-  vendorName String @unique
-  email String @unique
-  avatar String
-  passwordHash String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  type Role @default(VENDOR)
-  vendor_products Vendor_Product[]
-}
-
-model Vendor_Product {
-  id Int @id @default(autoincrement())
-  uuid String @unique
-  name String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  images String[]
+model Movie {
+  uuid        String   @unique
+  name        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  id          Int      @id @default(autoincrement())
+  images      String[]
   description String
-
-  price Float
-  quantity Int
-
-  categoryId Int @map("category_id")
-  category Category @relation(fields: [categoryId], references: [id])
-  vendorId Int @map("vendor_id")
-  vendor Vendor @relation(fields: [vendorId], references: [id])
-  product Product?//1:1
+  genreId     Int      @map("genre_id")
+  genre       Genre    @relation(fields: [genreId], references: [id])
 }
 
-model Product {
-  id Int @id @default(autoincrement())
-  uuid String @unique
-
-  name String
-  description String
-  images String[]
-  price Float
-
+model Genre {
+  uuid      String   @unique
+  name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  categoryId Int @map("category_id")
-  category Category @relation(fields: [categoryId], references: [id])
-
-  vendorProductId Int @map("vendor_product_id") @unique
-  vendorProduct Vendor_Product @relation(fields: [vendorProductId], references: [id])//1:1
-
-  orders Order[]
+  id        Int      @id @default(autoincrement())
+  movies    Movie[]
 }
 
-model Category {
-  id Int @id @default(autoincrement())
-  uuid String @unique
-  
-  name String
-  products Product[]
-  vendorProducts Vendor_Product[]//1:M
+enum Role {
+  USER
+  ADMIN
+}
+generator client {
+  provider = "prisma-client-js"
 }
 
-model Order {
-  id Int @id @default(autoincrement())
-  userId Int @map("user_id")
-  status OrderStatus @default(PLACED)
-  user User @relation(fields: [userId], references: [id])
-  productIds Int[] @map("product_ids")
-  products Product[]
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
+model User {
+  id        Int      @id @default(autoincrement())
+  uuid      String   @unique
+  username  String   @unique
+  email     String   @unique
+  firstName String
+  lastName  String
+  avatar    String
+  hash      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  type      Role     @default(USER)
+  // orders    Order[] //1:M
 }
 
-enum OrderStatus {
-  PLACED
-  INTRANSIT
-  COMPLETED
-  CANCELLED
-}
+// model Vendor {
+//   id        Int      @id @default(autoincrement())
+//   uuid      String   @unique
+//   vendorName String  @unique
+//   email     String   @unique
+//   avatar    String
+//   hash      String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   type      Role     @default(VENDOR)
+//   vendor_products  Vendor_Product[]
+// }
+
+// model Vendor_Product {
+//   id Int @id @default(autoincrement())
+//   uuid String @unique
+//   name String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   images String[]
+//   description String
+
+//   price Float
+//   quantity Int
+
+//   categoryId Int @map("category_id")
+//   category Category @relation(fields: [categoryId], references: [id])
+//   vendorId Int @map("vendor_id")
+//   vendor Vendor @relation(fields: [vendorId], references: [id])
+//   product Product?//1:1
+// }
+
+// model Product {
+//   id Int @id @default(autoincrement())
+//   uuid String @unique
+//   name String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   images String[]
+//   description String
+//   price Float
+
+//   categoryId Int @map("category_id")
+//   category Category @relation(fields: [categoryId], references: [id])
+
+//   vendorProductId Int @map("vendor_product_id") @unique
+//   vendorProduct Vendor_Product @relation(fields: [vendorProductId], references: [id])//1:1
+
+//   orders Order[]
+// }
+
+// model Category {
+//   id Int @id @default(autoincrement())
+//   uuid String @unique
+//   name String
+//   products Product[]
+//   vendorProducts Vendor_Product[]//1:M
+// }
+
+// model Order {
+//   id Int @id @default(autoincrement())
+//   userId Int @map("user_id")
+//   status OrderStatus @default(PLACED)
+//   user User @relation(fields: [userId], references: [id])
+//   productIds Int[] @map("product_ids")
+//   products Product[]
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+
+// enum OrderStatus {
+//   PLACED
+//   INTRANSIT
+//   COMPLETED
+//   CANCELLED
+// }
 
 enum Role {
   USER

@@ -1,5 +1,5 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { Role, Order } from '@prisma/client';
+import { Role } from '@prisma/client';
 
 @ObjectType()
 export class User {
@@ -23,12 +23,6 @@ export class User {
 
   @Field(() => String, { nullable: true })
   username?: string;
-
-  @Field(() => String, { nullable: true })
-  avatar?: string;
-
-  @Field(() => String, { nullable: true })
-  orders?: Order[];
 
   @Field(() => Date, { nullable: true })
   createdAt?: Date;

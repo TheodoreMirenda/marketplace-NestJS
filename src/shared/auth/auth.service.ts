@@ -42,7 +42,6 @@ export class AuthService {
             updatedAt: true,
             createdAt: true,
             lastName: true,
-            avatar: true,
           },
         },
       );

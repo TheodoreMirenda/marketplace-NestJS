@@ -3,7 +3,13 @@ import { Field, InputType } from '@nestjs/graphql';
 import { IsEmail, MaxLength, MinLength } from 'class-validator';
 
 @InputType()
-export class SignUpInput {
+export class VendorCreateInput {
+
+  @MinLength(4)
+  @MaxLength(60)
+  @Field(() => String)
+  vendorName: string;
+
   @IsEmail()
   @Field(() => String)
   email: string;
@@ -11,21 +17,11 @@ export class SignUpInput {
   @MinLength(4)
   @MaxLength(60)
   @Field(() => String)
-  username: string;
+  avatar: string;
 
   @MinLength(10)
   @MaxLength(60)
   @Field(() => String)
-  password: string;
+  passwordHash: string;
 
-  @MaxLength(60)
-  @Field(() => String)
-  firstName: string;
-
-  @MaxLength(60)
-  @Field(() => String)
-  lastName: string;
-
-  @Field(() => String)
-  avatar: string;
 }

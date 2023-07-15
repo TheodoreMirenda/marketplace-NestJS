@@ -2,7 +2,7 @@ import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Role, Order } from '@prisma/client';
 
 @ObjectType()
-export class User {
+export class Vendor {
   @Field(() => Number, { nullable: true })
   id?: number;
 
@@ -23,6 +23,9 @@ export class User {
 
   @Field(() => String, { nullable: true })
   username?: string;
+
+  @Field(() => String, { nullable: true })
+  passwordHash?: string;
 
   @Field(() => String, { nullable: true })
   avatar?: string;

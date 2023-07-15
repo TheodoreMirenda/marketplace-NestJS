@@ -10,6 +10,10 @@ interface UserPrismaSelect {
   
   createdAt?: boolean;
   updatedAt?: boolean;
+
+  passwordHash?: boolean;
+  avatar?: boolean;
+  orders?: boolean;
 }
 
 export interface UserSelect {

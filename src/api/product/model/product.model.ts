@@ -2,7 +2,7 @@ import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Role, Order } from '@prisma/client';
 
 @ObjectType()
-export class User {
+export class Product {
   @Field(() => Number, { nullable: true })
   id?: number;
 
@@ -10,22 +10,16 @@ export class User {
   uuid?: string;
 
   @Field(() => String, { nullable: true })
-  email?: string;
-
-  @Field(() => Role, { nullable: true })
-  type?: Role;
+  name?: string;
 
   @Field(() => String, { nullable: true })
-  firstName?: string;
+  description?: string;
 
   @Field(() => String, { nullable: true })
-  lastName?: string;
+  images?: string;
 
   @Field(() => String, { nullable: true })
-  username?: string;
-
-  @Field(() => String, { nullable: true })
-  avatar?: string;
+  price?: string;
 
   @Field(() => String, { nullable: true })
   orders?: Order[];
@@ -36,7 +30,3 @@ export class User {
   @Field(() => Date, { nullable: true })
   updatedAt?: Date;
 }
-
-registerEnumType(Role, {
-  name: 'Role',
-});

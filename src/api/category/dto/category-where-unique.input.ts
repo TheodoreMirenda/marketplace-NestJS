@@ -6,8 +6,5 @@ export class CategoryWhereUniqueInput {
   uuid?: string;
 
   @Field(() => String, { nullable: true })
-  username?: string;
-
-  @Field(() => String, { nullable: true })
-  email: string;
+  name?: string;
 }

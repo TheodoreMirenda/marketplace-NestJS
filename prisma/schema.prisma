@@ -24,20 +24,18 @@ model User {
 
   avatar String
   orders Order[] //1:M
+  vendor Vendor? //1:1
 }
 
 model Vendor {
   id Int @id @default(autoincrement())
   uuid String @unique
+  user User @relation(fields: [uuid], references: [uuid])
 
   vendorName String @unique
-  email String @unique
-  avatar String
-  passwordHash String
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  type Role @default(VENDOR)
+
   vendor_products Vendor_Product[]
 }
 
@@ -78,25 +76,29 @@ model Product {
   vendorProductId Int @map("vendor_product_id") @unique
   vendorProduct Vendor_Product @relation(fields: [vendorProductId], references: [id])//1:1
 
-  orders Order[]
+  // orders Order[]
 }
 
+//should this be an enum?
 model Category {
   id Int @id @default(autoincrement())
   uuid String @unique
   
-  name String
+  name String @unique
   products Product[]
   vendorProducts Vendor_Product[]//1:M
 }
 
 model Order {
   id Int @id @default(autoincrement())
+  uuid String @unique
   userId Int @map("user_id")
-  status OrderStatus @default(PLACED)
-  user User @relation(fields: [userId], references: [id])
+  vendorId Int @map("vendor_id")
+
+  orderStatus OrderStatus @default(PLACED)
+  user User @relation(fields: [userId], references: [id])//do I need this?
   productIds Int[] @map("product_ids")
-  products Product[]
+  // products Product[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

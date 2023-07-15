@@ -30,8 +30,6 @@ export class CategoryService {
       data:{
         ...data,
         uuid: uuidv4(),
-        
-
       },
       select,
     });

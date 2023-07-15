@@ -1,16 +1,16 @@
-interface CategoryPrismaSelect {
+interface OrderPrismaSelect {
   id?: boolean;
   uuid?: boolean;
   userId?: boolean;
-  vendorId?: boolean;
 
   orderStatus?: boolean;
+  user?: boolean;
   productIds?: boolean;
   
   createdAt?: boolean;
   updatedAt?: boolean;
 }
 
-export interface CategorySelect {
-  select?: CategoryPrismaSelect;
+export interface OrderSelect {
+  select?: OrderPrismaSelect;
 }

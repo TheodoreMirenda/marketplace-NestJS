@@ -5,23 +5,18 @@ import { IsEmail, MaxLength, MinLength } from 'class-validator';
 @InputType()
 export class VendorProductCreateInput {
 
-  @MinLength(4)
-  @MaxLength(60)
   @Field(() => String)
-  vendorName: string;
+  vendorId: string;
 
-  @IsEmail()
   @Field(() => String)
-  email: string;
+  productId: string;
 
-  @MinLength(4)
-  @MaxLength(60)
   @Field(() => String)
-  avatar: string;
+  price: string;
 
-  @MinLength(10)
-  @MaxLength(60)
   @Field(() => String)
-  passwordHash: string;
+  quantity: string;
 
+  @Field(() => String)
+  description: string;
 }

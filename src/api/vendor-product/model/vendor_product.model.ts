@@ -3,43 +3,24 @@ import { Role, Order } from '@prisma/client';
 
 @ObjectType()
 export class VendorProduct {
-  @Field(() => Number, { nullable: true })
-  id?: number;
+  @Field(() => String)
+  id: string;
 
-  @Field(() => String, { nullable: true })
-  uuid?: string;
+  @Field(() => String)
+  vendorId: string;
 
-  @Field(() => String, { nullable: true })
-  email?: string;
+  @Field(() => String)
+  productId: string;
 
-  @Field(() => Role, { nullable: true })
-  type?: Role;
+  @Field(() => String)
+  price: string;
 
-  @Field(() => String, { nullable: true })
-  firstName?: string;
+  @Field(() => String)
+  quantity: string;
 
-  @Field(() => String, { nullable: true })
-  lastName?: string;
+  @Field(() => String)
+  createdAt: string;
 
-  @Field(() => String, { nullable: true })
-  username?: string;
-
-  @Field(() => String, { nullable: true })
-  passwordHash?: string;
-
-  @Field(() => String, { nullable: true })
-  avatar?: string;
-
-  @Field(() => String, { nullable: true })
-  orders?: Order[];
-
-  @Field(() => Date, { nullable: true })
-  createdAt?: Date;
-
-  @Field(() => Date, { nullable: true })
-  updatedAt?: Date;
+  @Field(() => String)
+  updatedAt: string;
 }
-
-registerEnumType(Role, {
-  name: 'Role',
-});

@@ -32,7 +32,6 @@ export class VendorProductService {
         uuid: uuidv4(),
         createdAt: new Date(),
         updatedAt: new Date(),
-        role: 'VENDOR',
         vendor_products: {
         }
       },

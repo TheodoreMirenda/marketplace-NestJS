@@ -1,16 +1,10 @@
 interface VendorPrismaSelect {
-  id?: boolean;
   uuid?: boolean;
-
+  userId?: boolean;
   vendorName?: boolean;
-  email?: boolean;
-  avatar?: boolean;
-  passwordHash?: boolean;
-
   createdAt?: boolean;
   updatedAt?: boolean;
-  type?: boolean;
-  vendor_product?: boolean;
+  user?: boolean;
 }
 
 export interface VendorSelect {

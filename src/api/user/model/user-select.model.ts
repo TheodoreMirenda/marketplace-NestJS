@@ -1,5 +1,4 @@
 interface UserPrismaSelect {
-  id?: boolean;
   uuid?: boolean;
   username?: boolean;
   email?: boolean;
@@ -7,13 +6,12 @@ interface UserPrismaSelect {
   type?: boolean;
   firstName?: boolean;
   lastName?: boolean;
-  
+  avatar?: boolean;
+
   createdAt?: boolean;
   updatedAt?: boolean;
-
-  passwordHash?: boolean;
-  avatar?: boolean;
   orders?: boolean;
+  vendor?: boolean;
 }
 
 export interface UserSelect {

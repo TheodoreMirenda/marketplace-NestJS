@@ -25,9 +25,6 @@ export class Vendor {
   username?: string;
 
   @Field(() => String, { nullable: true })
-  passwordHash?: string;
-
-  @Field(() => String, { nullable: true })
   avatar?: string;
 
   @Field(() => String, { nullable: true })

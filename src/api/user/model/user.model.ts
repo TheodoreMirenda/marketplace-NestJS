@@ -1,11 +1,11 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { Role, Order } from '@prisma/client';
+import { Role, Order, Vendor } from '@prisma/client';
 
-@ObjectType()
+@ObjectType()//this is all the stuff that can be returned from the graphql api
 export class User {
-  @Field(() => Number, { nullable: true })
-  id?: number;
-
+  @Field(() => String, { nullable: true })
+  id?: string;
+  
   @Field(() => String, { nullable: true })
   uuid?: string;
 
@@ -35,6 +35,9 @@ export class User {
 
   @Field(() => Date, { nullable: true })
   updatedAt?: Date;
+
+  @Field(() => String, { nullable: true })
+  vendor?: Vendor;
 }
 
 registerEnumType(Role, {

@@ -33,7 +33,6 @@ export class AuthService {
         },
         {
           select: {
-            id: true,
             uuid: true,
             email: true,
             type: true,

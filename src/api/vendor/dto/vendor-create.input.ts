@@ -1,6 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { IsEmail, MaxLength, MinLength } from 'class-validator';
+import { UserCreateNestedOneWithoutVendorInput } from 'src/api/user/dto';
 
 @InputType()
 export class VendorCreateInput {
@@ -8,20 +9,8 @@ export class VendorCreateInput {
   @MinLength(4)
   @MaxLength(60)
   @Field(() => String)
-  vendorName: string;
+  name: string;
 
-  @IsEmail()
-  @Field(() => String)
-  email: string;
-
-  @MinLength(4)
-  @MaxLength(60)
-  @Field(() => String)
-  avatar: string;
-
-  @MinLength(10)
-  @MaxLength(60)
-  @Field(() => String)
-  passwordHash: string;
-
+  @Field(() => UserCreateNestedOneWithoutVendorInput)
+  user: UserCreateNestedOneWithoutVendorInput;
 }

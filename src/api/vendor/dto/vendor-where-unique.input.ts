@@ -2,12 +2,16 @@ import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class VendorWhereUniqueInput {
-  @Field(() => String, { nullable: true })
-  uuid?: string;
+
+  @Field(() => Number, { nullable: true })
+  id: number;
 
   @Field(() => String, { nullable: true })
-  username?: string;
+  uuid: string;
 
   @Field(() => String, { nullable: true })
-  email: string;
+  userId: number;
+
+  @Field(() => String, { nullable: true })
+  vendorName: string;
 }

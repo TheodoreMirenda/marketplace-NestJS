@@ -2,6 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { Role } from '@prisma/client';
 
 import { IsEmail, MaxLength, MinLength } from 'class-validator';
+import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserCreateInput {
@@ -32,4 +33,10 @@ export class UserCreateInput {
 
   @Field(() => String)
   avatar: string;
+}
+
+@InputType()
+export class UserCreateNestedOneWithoutVendorInput {
+  @Field(() => UserWhereUniqueInput)
+  connect: UserWhereUniqueInput;
 }

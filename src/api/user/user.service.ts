@@ -34,12 +34,7 @@ export class UserService {
     { select }: UserSelect,
   ): Promise<User> {
     return this.prismaService.user.create({
-      data: {
-        ...data,
-        uuid: uuidv4(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
+      data,
       select,
     });
   }

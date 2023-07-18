@@ -27,15 +27,7 @@ export class VendorService {
     { select }: VendorSelect,
   ): Promise<Vendor> {
     return this.prismaService.vendor.create({
-      data:{
-        ...data,
-        uuid: uuidv4(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        type: 'VENDOR',
-        vendor_products: {
-        }
-      },
+      data,
       select,
     });
   }

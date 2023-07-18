@@ -14,3 +14,9 @@ export class VendorCreateInput {
   @Field(() => UserCreateNestedOneWithoutVendorInput)
   user: UserCreateNestedOneWithoutVendorInput;
 }
+
+@InputType()
+export class VendorCreateNestedOneWithoutVendorProductsInput {
+  @Field(() => VendorCreateNestedOneWithoutVendorProductsInput)
+  connect: VendorCreateNestedOneWithoutVendorProductsInput;
+}

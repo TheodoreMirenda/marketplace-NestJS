@@ -10,25 +10,7 @@ export class Vendor {
   uuid?: string;
 
   @Field(() => String, { nullable: true })
-  email?: string;
-
-  @Field(() => Role, { nullable: true })
-  type?: Role;
-
-  @Field(() => String, { nullable: true })
-  firstName?: string;
-
-  @Field(() => String, { nullable: true })
-  lastName?: string;
-
-  @Field(() => String, { nullable: true })
-  username?: string;
-
-  @Field(() => String, { nullable: true })
-  avatar?: string;
-
-  @Field(() => String, { nullable: true })
-  orders?: Order[];
+  name?: string;
 
   @Field(() => Date, { nullable: true })
   createdAt?: Date;

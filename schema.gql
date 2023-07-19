@@ -11,9 +11,9 @@ type User {
   lastName: String
   username: String
   avatar: String
-  orders: String
   createdAt: DateTime
   updatedAt: DateTime
+  orders: String
   vendor: String
 }
 
@@ -36,20 +36,51 @@ type LoginOutput {
 type Vendor {
   id: Float
   uuid: String
-  email: String
-  type: Role
-  firstName: String
-  lastName: String
-  username: String
-  avatar: String
-  orders: String
+  name: String
   createdAt: DateTime
   updatedAt: DateTime
 }
 
+type Category {
+  id: Float
+  uuid: String
+  name: String
+  orders: String
+}
+
+type Product {
+  id: Float
+  uuid: String
+  name: String
+  description: String
+  images: String
+  price: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  category: String
+  vendorProduct: String
+  productOrder: String
+}
+
+type VendorProduct {
+  id: Float
+  uuid: String
+  name: String
+  quantity: Float
+  categoryId: Float
+  vendorId: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  category: String
+  vendor: String
+  product: String
+}
+
 type Query {
   user(where: UserWhereUniqueInput!): User
-  vendor(where: VendorWhereUniqueInput!): Vendor
+  category(where: CategoryWhereUniqueInput!): Category
+  vendor(where: VendorProductWhereUniqueInput!): VendorProduct
+  Product(where: ProductWhereUniqueInput!): Product
 }
 
 input UserWhereUniqueInput {
@@ -58,18 +89,32 @@ input UserWhereUniqueInput {
   email: String
 }
 
-input VendorWhereUniqueInput {
+input CategoryWhereUniqueInput {
   id: Float
   uuid: String
-  userId: String
-  vendorName: String
+  name: String
+}
+
+input VendorProductWhereUniqueInput {
+  id: Float
+  uuid: String
+  name: String
+}
+
+input ProductWhereUniqueInput {
+  id: Float!
+  uuid: String
+  vendorProductId: Float
 }
 
 type Mutation {
   login(data: LoginUserInput!): LoginOutput!
   signup(data: SignUpInput!): User!
   createUser(data: UserCreateInput!): User!
+  createCategory(data: CategoryCreateInput!): Category!
   createVendor(data: VendorCreateInput!): Vendor!
+  createProduct(data: ProductCreateInput!): Product!
+  createVendorProduct(data: VendorProductCreateInput!): VendorProduct!
 }
 
 input LoginUserInput {
@@ -96,6 +141,10 @@ input UserCreateInput {
   avatar: String!
 }
 
+input CategoryCreateInput {
+  name: String!
+}
+
 input VendorCreateInput {
   name: String!
   user: UserCreateNestedOneWithoutVendorInput!
@@ -103,4 +152,43 @@ input VendorCreateInput {
 
 input UserCreateNestedOneWithoutVendorInput {
   connect: UserWhereUniqueInput!
+}
+
+input ProductCreateInput {
+  name: String!
+  description: String!
+  images: String!
+  price: Float!
+  category: CategoryCreateNestedOneWithoutProductsInput!
+  vendorProduct: VendorProductCreateNestedOneWithoutProductInput!
+}
+
+input CategoryCreateNestedOneWithoutProductsInput {
+  connect: CategoryWhereUniqueInput!
+}
+
+input VendorProductCreateNestedOneWithoutProductInput {
+  connect: VendorProductWhereUniqueInput!
+}
+
+input VendorProductCreateInput {
+  name: String!
+  quantity: String!
+  category: CategoryCreateNestedOneWithoutVendorProductsInput!
+  vendor: VendorCreateNestedOneWithoutVendorProductsInput!
+}
+
+input CategoryCreateNestedOneWithoutVendorProductsInput {
+  connect: CategoryWhereUniqueInput!
+}
+
+input VendorCreateNestedOneWithoutVendorProductsInput {
+  connect: VendorWhereUniqueInput!
+}
+
+input VendorWhereUniqueInput {
+  id: Float
+  uuid: String
+  userId: String
+  vendorName: String
 }

@@ -39,3 +39,27 @@ mutation{
       id
     }
   }
+
+  mutation {
+    createProduct(
+      data: {
+        name: "fern"
+        description: "its a fern"
+        images: " "
+        price: 100.00
+        
+        }
+    ) {
+      id
+    }
+  }
+
+  mutation {
+    createCategory(
+      data: {
+        name:"fish"
+      }
+    ) {
+      id
+    }
+  }

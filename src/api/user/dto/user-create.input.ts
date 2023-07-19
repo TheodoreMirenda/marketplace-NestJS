@@ -40,3 +40,9 @@ export class UserCreateNestedOneWithoutVendorInput {
   @Field(() => UserWhereUniqueInput)
   connect: UserWhereUniqueInput;
 }
+
+@InputType()
+export class UserCreateNestedOneWithoutOrdersInput {
+  @Field(() => UserWhereUniqueInput)
+  connect: UserWhereUniqueInput;
+}

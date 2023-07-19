@@ -27,10 +27,7 @@ export class CategoryService {
     { select }: CategorySelect,
   ): Promise<Category> {
     return this.prismaService.category.create({
-      data:{
-        ...data,
-        uuid: uuidv4(),
-      },
+      data,
       select,
     });
   }

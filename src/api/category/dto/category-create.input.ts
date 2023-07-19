@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { CategoryWhereUniqueInput } from './category-where-unique.input';
 
 @InputType()
 export class CategoryCreateInput {
@@ -9,6 +10,12 @@ export class CategoryCreateInput {
 
 @InputType()
 export class CategoryCreateNestedOneWithoutVendorProductsInput {
-  @Field(() => CategoryCreateNestedOneWithoutVendorProductsInput)
-  connect: CategoryCreateNestedOneWithoutVendorProductsInput;
+  @Field(() => CategoryWhereUniqueInput)
+  connect: CategoryWhereUniqueInput;
+}
+
+@InputType()
+export class CategoryCreateNestedOneWithoutProductsInput {
+  @Field(() => CategoryWhereUniqueInput)
+  connect: CategoryWhereUniqueInput;
 }

@@ -2,6 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 
 import { IsEmail, MaxLength, MinLength } from 'class-validator';
 import { UserCreateNestedOneWithoutVendorInput } from 'src/api/user/dto';
+import { VendorWhereUniqueInput } from './vendor-where-unique.input';
 
 @InputType()
 export class VendorCreateInput {
@@ -17,6 +18,6 @@ export class VendorCreateInput {
 
 @InputType()
 export class VendorCreateNestedOneWithoutVendorProductsInput {
-  @Field(() => VendorCreateNestedOneWithoutVendorProductsInput)
-  connect: VendorCreateNestedOneWithoutVendorProductsInput;
+  @Field(() => VendorWhereUniqueInput)
+  connect: VendorWhereUniqueInput;
 }

@@ -173,7 +173,7 @@ input VendorProductCreateNestedOneWithoutProductInput {
 
 input VendorProductCreateInput {
   name: String!
-  quantity: String!
+  quantity: Float!
   category: CategoryCreateNestedOneWithoutVendorProductsInput!
   vendor: VendorCreateNestedOneWithoutVendorProductsInput!
 }

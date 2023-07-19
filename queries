@@ -63,3 +63,17 @@ mutation{
       id
     }
   }
+
+  mutation {
+    createVendorProduct(
+      data: {
+        name: "first vendor product"
+        quantity: 111
+        category: { connect:{id:1}}
+        vendor: { connect: { id: 1 } }
+      }
+    ) {
+      id
+    }
+  }
+  

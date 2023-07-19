@@ -9,7 +9,7 @@ import { VendorProductWhereUniqueInput } from './vendor-product-where-unique.inp
 export class VendorProductCreateInput {
   @Field(() => String)
   name: string;
-  @Field(() => String)
+  @Field(() => Number)
   quantity: number;
   @Field(() => CategoryCreateNestedOneWithoutVendorProductsInput)
   category: CategoryCreateNestedOneWithoutVendorProductsInput

@@ -14,7 +14,7 @@ export class Product {
   name?: string;
   @Field(() => String, { nullable: true })
   description?: string;
-  @Field(() => String, { nullable: true })
+  @Field(() => [String]!)
   images?: string[];
   @Field(() => Number, { nullable: true })
   price?: number;
@@ -22,7 +22,8 @@ export class Product {
   createdAt?: Date;
   @Field(() => Date, { nullable: true })
   updatedAt?: Date;
-  @Field(() => String, { nullable: true })
+
+  @Field(() => Category, { nullable: true })
   category?: Category;
   @Field(() => VendorProduct, { nullable: true })
   vendorProduct?: VendorProduct;

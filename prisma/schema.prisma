@@ -63,7 +63,7 @@ model Product {
   vendorProductId Int            @unique @map("vendor_product_id")
   category        Category       @relation(fields: [categoryId], references: [id])
   vendorProduct   VendorProduct  @relation(fields: [vendorProductId], references: [id]) //1:1
-  ProductOrder    ProductOrder[]
+  productOrders   ProductOrder[]
 }
 
 model Category {

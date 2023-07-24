@@ -1,13 +1,12 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { OrderStatus } from '@prisma/client';
-import { number } from 'joi';
 
 @InputType()
 export class OrderWhereUniqueInput {
   @Field(() => String, { nullable: true })
   uuid: string;
 
-  @Field(() => number, { nullable: true })
+  @Field(() => Number, { nullable: true })
   id: number;
   
 }

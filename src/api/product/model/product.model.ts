@@ -1,5 +1,8 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { Category, ProductOrder, VendorProduct } from '@prisma/client';
+import { Category } from 'src/api/category/model/category.model';
+import { ProductOrder } from 'src/api/product-order/model/product-order.model';
+import { VendorProduct } from 'src/api/vendor-product/model/vendor-product.model';
+
 
 @ObjectType()
 export class Product {
@@ -21,8 +24,8 @@ export class Product {
   updatedAt?: Date;
   @Field(() => String, { nullable: true })
   category?: Category;
-  @Field(() => String, { nullable: true })
+  @Field(() => VendorProduct, { nullable: true })
   vendorProduct?: VendorProduct;
-  @Field(() => String, { nullable: true })
+  @Field(() => [ProductOrder], { nullable: true })//thats how you tell its going to be an array
   productOrder?: ProductOrder[];
 }

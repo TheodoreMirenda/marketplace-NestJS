@@ -1,5 +1,7 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { Role, Order, Vendor } from '@prisma/client';
+import { Order } from 'src/api/order/model/order.model';
+import { Vendor } from 'src/api/vendor/model/vendor.model';
+import { Role } from '@prisma/client';
 
 @ObjectType()//this is all the stuff that can be returned from the graphql api
 export class User {
@@ -24,9 +26,9 @@ export class User {
   createdAt?: Date;
   @Field(() => Date, { nullable: true })
   updatedAt?: Date;
-  @Field(() => String, { nullable: true })
+  @Field(() => [Order], { nullable: true })
   orders?: Order[];
-  @Field(() => String, { nullable: true })
+  @Field(() => Vendor, { nullable: true })
   vendor?: Vendor;
 }
 

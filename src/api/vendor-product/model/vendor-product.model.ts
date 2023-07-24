@@ -1,5 +1,7 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { Category, Vendor, Product } from '@prisma/client';
+import { Category} from 'src/api/category/model/category.model';
+import { Vendor } from 'src/api/vendor/model/vendor.model';
+import { Product } from 'src/api/product/model/product.model';
 
 @ObjectType()
 export class VendorProduct {
@@ -20,10 +22,10 @@ export class VendorProduct {
   @Field(() => Date, { nullable: true })
   updatedAt?: Date;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => Category, { nullable: true })
   category?: Category;
-  @Field(() => String, { nullable: true })
+  @Field(() => Vendor, { nullable: true })
   vendor?: Vendor;
-  @Field(() => String, { nullable: true })
+  @Field(() => Product, { nullable: true })
   product?: Product;
 }

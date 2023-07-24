@@ -1,5 +1,5 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { Role, Order } from '@prisma/client';
+import { Order } from 'src/api/order/model/order.model';
 
 @ObjectType()
 export class Category {
@@ -12,10 +12,6 @@ export class Category {
   @Field(() => String, { nullable: true })
   name?: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => [Order], { nullable: true })
   orders?: Order[];
 }
-
-registerEnumType(Role, {
-  name: 'Role',
-});

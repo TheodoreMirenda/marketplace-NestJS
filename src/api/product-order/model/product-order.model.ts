@@ -1,6 +1,6 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { Order, Product } from '@prisma/client';
-
+import { Product } from 'src/api/product/model/product.model';
+import { Order } from 'src/api/order/model/order.model';
 
 @ObjectType()
 export class ProductOrder {
@@ -11,8 +11,8 @@ export class ProductOrder {
   @Field(() => Number, { nullable: true })
   quantity?: number;
   
-  @Field(() => String, { nullable: true })
+  @Field(() => Product, { nullable: true })
   product?: Product;
-  @Field(() => String, { nullable: true })
+  @Field(() => Order, { nullable: true })
   order?: Order;
 }

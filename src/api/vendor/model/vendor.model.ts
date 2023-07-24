@@ -1,6 +1,5 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { Role, Order } from '@prisma/client';
-
+import { Role } from '@prisma/client';
 @ObjectType()
 export class Vendor {
   @Field(() => Number, { nullable: true })

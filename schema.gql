@@ -107,6 +107,7 @@ type Query {
   category(where: CategoryWhereUniqueInput!): Category
   vendor(where: VendorProductWhereUniqueInput!): VendorProduct
   Product(where: ProductWhereUniqueInput!): Product
+  Order(where: OrderWhereUniqueInput!): Order
 }
 
 input UserWhereUniqueInput {
@@ -133,6 +134,11 @@ input ProductWhereUniqueInput {
   vendorProductId: Float
 }
 
+input OrderWhereUniqueInput {
+  uuid: String
+  id: Float
+}
+
 type Mutation {
   login(data: LoginUserInput!): LoginOutput!
   signup(data: SignUpInput!): User!
@@ -141,6 +147,7 @@ type Mutation {
   createVendor(data: VendorCreateInput!): Vendor!
   createProduct(data: ProductCreateInput!): Product!
   createVendorProduct(data: VendorProductCreateInput!): VendorProduct!
+  createOrder(data: OrderCreateInput!): Order!
 }
 
 input LoginUserInput {
@@ -217,4 +224,12 @@ input VendorWhereUniqueInput {
   uuid: String
   userId: String
   vendorName: String
+}
+
+input OrderCreateInput {
+  user: UserCreateNestedOneWithoutOrdersInput!
+}
+
+input UserCreateNestedOneWithoutOrdersInput {
+  connect: UserWhereUniqueInput!
 }

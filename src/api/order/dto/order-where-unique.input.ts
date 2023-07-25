@@ -4,7 +4,7 @@ import { OrderStatus } from '@prisma/client';
 @InputType()
 export class OrderWhereUniqueInput {
   @Field(() => String, { nullable: true })
-  uuid: string;
+  uuid?: string;
 
   @Field(() => Number, { nullable: true })
   id: number;

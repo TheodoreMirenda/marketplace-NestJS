@@ -15,7 +15,7 @@ export class ProductCreateInput {
   @Field(() => String)
   description: string;
 
-  @Field(() => String)
+  @Field(() => [String])
   images: string[];
 
   @Field(() => Number)

@@ -7,12 +7,12 @@ import { OrderWhereUniqueInput } from './order-where-unique.input';
 
 @InputType()
 export class OrderCreateInput {
-  @Field(() => String)
-  uuid: string;
+
   @Field(() => UserCreateNestedOneWithoutOrdersInput)
   user: UserCreateNestedOneWithoutOrdersInput;
-  // @Field(() => ProductOrderCreateNestedManyWithoutOrderInput)
-  // productOrders: ProductOrderCreateNestedManyWithoutOrderInput;
+
+  @Field(() => ProductOrderCreateNestedManyWithoutOrderInput)
+  productOrders: ProductOrderCreateNestedManyWithoutOrderInput;
 }
 
 @InputType()

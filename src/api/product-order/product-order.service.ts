@@ -13,16 +13,17 @@ export class ProductOrderService {
   constructor(private readonly prismaService: PrismaService) {}
 
   public async findOne(
-    { where }: ProductOrderArgs,
+    { where: productId_orderId }: ProductOrderArgs,
     { select }: ProductOrderSelect,
   ): Promise<ProductOrder> {
-    return null;
-    // this.prismaService.productOrder.findUnique({
-    //   where,
-    //   select,
-    // });
+    return this.prismaService.productOrder.findUnique({
+      where: {
+        productId_orderId,
+      },
+      select,
+    });
   }
-  
+
   public async create(
     data: ProductOrderCreateInput,
     { select }: ProductOrderSelect,

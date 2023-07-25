@@ -15,11 +15,15 @@ export class Order {
   createdAt?: Date;
   @Field(() => Date, { nullable: true })
   updatedAt?: Date;
-
-  @Field(() => OrderStatus, { nullable: true })
+  
+  @Field(() => OrderStatus)
   orderStatus?: OrderStatus;
-  @Field(() => User, { nullable: true })
+  @Field(() => User)
   user?: User;
   @Field(() => [ProductOrder], { nullable: true })
   productOrders?: ProductOrder[];
 }
+
+registerEnumType(OrderStatus, {
+  name: 'OrderStatus',
+});

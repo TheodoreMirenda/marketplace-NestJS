@@ -8,6 +8,8 @@ import { VendorModule } from './api/vendor/vendor.module';
 import { CategoryModule } from './api/category/category.module';
 import { ProductModule } from './api/product/product.module';
 import { VendorProductModule } from './api/vendor-product/vendor-product.module';
+import { OrderModule } from './api/order/order.module';
+import { ProductOrderModule } from './api/product-order/product-order.module';
 
 @Module({
   imports: [
@@ -18,7 +20,9 @@ import { VendorProductModule } from './api/vendor-product/vendor-product.module'
     CategoryModule,
     VendorModule,
     ProductModule,
-    VendorProductModule
+    VendorProductModule,
+    OrderModule,
+    ProductOrderModule
   ],
   controllers: [],
   providers: [],

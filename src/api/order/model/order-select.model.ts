@@ -3,12 +3,12 @@ interface OrderPrismaSelect {
   uuid?: boolean;
   userId?: boolean;
 
-  orderStatus?: boolean;
-  user?: boolean;
-  productIds?: boolean;
-  
   createdAt?: boolean;
   updatedAt?: boolean;
+
+  orderStatus?: boolean;
+  user?: boolean;
+  productOrders?: boolean;
 }
 
 export interface OrderSelect {

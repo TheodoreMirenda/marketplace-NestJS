@@ -1,11 +1,6 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import { Injectable } from '@nestjs/common';
-
 import { Category, CategorySelect } from './model';
-
 import { CategoryArgs, CategoryCreateInput } from './dto';
-
 import { PrismaService } from 'src/shared/datasource/prisma/prisma.service';
 
 @Injectable()

@@ -1,11 +1,6 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import { Injectable } from '@nestjs/common';
-
 import { User, UserSelect } from './model';
-
 import { UserArgs, UserCreateInput } from './dto';
-
 import { PrismaService } from 'src/shared/datasource/prisma/prisma.service';
 
 @Injectable()

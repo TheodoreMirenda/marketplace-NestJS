@@ -10,7 +10,6 @@ export class ProductOrder {
   orderId?: number;
   @Field(() => Number, { nullable: true })
   quantity?: number;
-  
   @Field(() => Product, { nullable: true })
   product?: Product;
   @Field(() => Order, { nullable: true })

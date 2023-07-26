@@ -15,7 +15,6 @@ export class Order {
   createdAt?: Date;
   @Field(() => Date, { nullable: true })
   updatedAt?: Date;
-  
   @Field(() => OrderStatus)
   orderStatus?: OrderStatus;
   @Field(() => User)

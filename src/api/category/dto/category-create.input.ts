@@ -3,7 +3,6 @@ import { CategoryWhereUniqueInput } from './category-where-unique.input';
 
 @InputType()
 export class CategoryCreateInput {
-
   @Field(() => String)
   name: string;
 }

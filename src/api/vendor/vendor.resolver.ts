@@ -20,7 +20,7 @@ import { RolesGuard, JwtAuthGuard } from 'src/shared/auth/guards';
 export class VendorResolver {
   constructor(private readonly vendorService: VendorService) {}
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Query(() => Vendor,{nullable:true})
   public async vendor(
     @Args() args: VendorArgs,
@@ -30,8 +30,8 @@ export class VendorResolver {
   }
 
   @Mutation(() => Vendor)
-  // @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles(Role.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
   public async createVendor(
     @Args('data') data: VendorCreateInput,
     @GraphQLFields() { fields }: IGraphQLFields<VendorSelect>,

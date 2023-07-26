@@ -1,10 +1,8 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { Role } from '@prisma/client';
-
-import { IsEmail, MaxLength, MinLength } from 'class-validator';
 import { ProductCreateNestedOneWithoutProductOrderInput } from 'src/api/product/dto';
 import { OrderCreateNestedOneWithoutProductOrdersInput } from 'src/api/order/dto';
 import { ProductCreateNestedOneWithoutProductOrdersInput } from 'src/api/product/dto';
+
 @InputType()
 export class ProductOrderCreateInput {
   @Field(() => Number, { nullable: true })

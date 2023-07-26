@@ -39,3 +39,9 @@ export class ProductCreateNestedOneWithoutProductOrderInput {
   @Field(() => ProductWhereUniqueInput)
   connect: ProductWhereUniqueInput;
 }
+
+@InputType()
+export class ProductCreateNestedOneWithoutProductOrdersInput {
+  @Field(() => ProductWhereUniqueInput)
+  connect: ProductWhereUniqueInput;
+}

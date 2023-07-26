@@ -108,6 +108,7 @@ type Query {
   vendor(where: VendorProductWhereUniqueInput!): VendorProduct
   Product(where: ProductWhereUniqueInput!): Product
   Order(where: OrderWhereUniqueInput!): Order
+  ProductOrder(where: ProductOrderWhereUniqueInput!): ProductOrder
 }
 
 input UserWhereUniqueInput {
@@ -139,6 +140,11 @@ input OrderWhereUniqueInput {
   id: Float
 }
 
+input ProductOrderWhereUniqueInput {
+  productId: Float!
+  orderId: Float!
+}
+
 type Mutation {
   login(data: LoginUserInput!): LoginOutput!
   signup(data: SignUpInput!): User!
@@ -148,6 +154,7 @@ type Mutation {
   createProduct(data: ProductCreateInput!): Product!
   createVendorProduct(data: VendorProductCreateInput!): VendorProduct!
   createOrder(data: OrderCreateInput!): Order!
+  createProductOrder(data: ProductOrderCreateInput!): ProductOrder!
 }
 
 input LoginUserInput {
@@ -228,8 +235,36 @@ input VendorWhereUniqueInput {
 
 input OrderCreateInput {
   user: UserCreateNestedOneWithoutOrdersInput!
+  productOrders: ProductOrderCreateNestedManyWithoutOrderInput!
 }
 
 input UserCreateNestedOneWithoutOrdersInput {
   connect: UserWhereUniqueInput!
+}
+
+input ProductOrderCreateNestedManyWithoutOrderInput {
+  createMany: ProductOrderCreateManyOrderInputEnvelope!
+}
+
+input ProductOrderCreateManyOrderInputEnvelope {
+  data: [ProductOrderCreateManyOrderInput!]!
+}
+
+input ProductOrderCreateManyOrderInput {
+  productId: Float
+  quantity: Float
+}
+
+input ProductOrderCreateInput {
+  quantity: Float
+  product: ProductCreateNestedOneWithoutProductOrderInput!
+  order: OrderCreateNestedOneWithoutProductOrdersInput!
+}
+
+input ProductCreateNestedOneWithoutProductOrderInput {
+  connect: ProductWhereUniqueInput!
+}
+
+input OrderCreateNestedOneWithoutProductOrdersInput {
+  connect: OrderWhereUniqueInput!
 }

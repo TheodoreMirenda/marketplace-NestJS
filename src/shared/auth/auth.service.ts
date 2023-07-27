@@ -14,7 +14,7 @@ import { User } from 'src/api/user/model/user.model';
 
 import { UserService } from 'src/api/user/user.service';
 
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class AuthService {
@@ -58,7 +58,35 @@ export class AuthService {
     }
   }
 
-  async login(user: User) {
+  async login(email: string, password: string) {
+    const user = await this.userService.findOne(
+      {
+        where: {
+          email
+        },
+      },
+      {
+        select: {
+          uuid: true,
+          email: true,
+          type: true,
+          username: true,
+          firstName: true,
+          updatedAt: true,
+          createdAt: true,
+          lastName: true,
+          avatar: true,
+        },
+      },
+    );
+    const userPassword = await this.userService.findUserPassword({
+      where: {
+        email
+      },
+    });
+    if (userPassword!= password) {
+      throw new Error('Incorrect password!');
+    }
     return {
       access_token: this.jwtService.sign({
         email: user.email,

@@ -105,8 +105,8 @@ type LoginOutput {
 type Query {
   user(where: UserWhereUniqueInput!): User
   category(where: CategoryWhereUniqueInput!): Category
-  vendor(where: VendorProductWhereUniqueInput!): VendorProduct
   Product(where: ProductWhereUniqueInput!): Product
+  vendor(where: VendorProductWhereUniqueInput!): VendorProduct
   Order(where: OrderWhereUniqueInput!): Order
   ProductOrder(where: ProductOrderWhereUniqueInput!): ProductOrder
 }
@@ -123,16 +123,16 @@ input CategoryWhereUniqueInput {
   name: String
 }
 
-input VendorProductWhereUniqueInput {
-  id: Float
-  uuid: String
-  name: String
-}
-
 input ProductWhereUniqueInput {
   id: Float!
   uuid: String
   vendorProductId: Float
+}
+
+input VendorProductWhereUniqueInput {
+  id: Float
+  uuid: String
+  name: String
 }
 
 input OrderWhereUniqueInput {

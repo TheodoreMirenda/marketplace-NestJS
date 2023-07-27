@@ -6,14 +6,15 @@ import { AuthService } from './auth.service';
 import { LoginUserInput, LoginOutput } from './dto';
 import { GraphQLFields, IGraphQLFields } from '../decorators';
 import { User, UserSelect } from 'src/api/user/model';
+import { LoginOutputSelect } from './model';
 
 @Resolver()
 export class AuthResolver {
   constructor(private authService: AuthService) {}
 
   @Mutation(() => LoginOutput)
-  login(@Args('data') data: LoginUserInput, @Context() context) {
-    return this.authService.login(data.email, data.password);
+  login(@Args('data') data: LoginUserInput, @GraphQLFields() { fields }: IGraphQLFields<LoginOutputSelect>) {
+    return this.authService.login(data.email, data.password, fields);
   }
 
   @Mutation(() => User)

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { User } from 'src/api/user/model';
-import { Movie } from 'src/api/movie/model';
+// import { Movie } from 'src/api/movie/model';
 
 import { SearchInput } from 'src/shared/util';
 
@@ -15,7 +15,7 @@ const USER_SEARCH_FIELDS: Array<keyof User> = [
   'firstName',
   'lastName',
 ];
-const MOVIE_SEARCH_FIELDS: Array<keyof Movie> = ['name'];
+// const MOVIE_SEARCH_FIELDS: Array<keyof Movie> = ['name'];
 
 @Injectable()
 export class FilterService {
@@ -58,6 +58,6 @@ export class FilterService {
   }
 
   public getMovieSearchFilter(searchBy: SearchInput) {
-    return this.getSearchFilter(MOVIE_SEARCH_FIELDS, searchBy);
+    // return this.getSearchFilter(MOVIE_SEARCH_FIELDS, searchBy);
   }
 }

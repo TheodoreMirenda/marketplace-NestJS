@@ -9,5 +9,5 @@ export class UserWhereUniqueInput {
   username?: string;
 
   @Field(() => String, { nullable: true })
-  email: string;
+  email: string;//at least 1 field is required (for typescript)
 }

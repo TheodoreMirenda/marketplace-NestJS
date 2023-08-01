@@ -2,7 +2,7 @@ import * as bcrypt from 'bcrypt';
 
 import { Role } from '@prisma/client';
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 
 import { JwtService } from '@nestjs/jwt';
 
@@ -14,7 +14,7 @@ import { User } from 'src/api/user/model/user.model';
 
 import { UserService } from 'src/api/user/user.service';
 
-import { v4 as uuidv4 } from 'uuid';
+import { LoginOutputSelect } from './model';
 
 @Injectable()
 export class AuthService {
@@ -33,7 +33,6 @@ export class AuthService {
         },
         {
           select: {
-            id: true,
             uuid: true,
             email: true,
             type: true,
@@ -42,6 +41,7 @@ export class AuthService {
             updatedAt: true,
             createdAt: true,
             lastName: true,
+            avatar: true,
           },
         },
       );
@@ -58,7 +58,34 @@ export class AuthService {
     }
   }
 
-  async login(user: User) {
+  async login(email: string, password: string, fields: LoginOutputSelect) {
+
+    const userPassword = await this.userService.findUserPassword({
+      where: {
+        email,
+      },
+    });
+
+    if (userPassword != password) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const user = await this.userService.findOne(
+      {
+        where: {
+          email,
+        },
+      },
+      {
+        select: {
+          email: true, //fetching these beacuse I will need them below   //research smart endpoints
+          uuid: true,
+          type: true,
+          ...fields.select.user.select,
+        },
+      },
+    );
+
     return {
       access_token: this.jwtService.sign({
         email: user.email,

@@ -8,150 +8,101 @@ datasource db {
 }
 
 model User {
-  uuid String @unique
-  password String
-
-  username String @unique
-  email String @unique
-
-  firstName String
-  lastName String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  type Role @default(USER)
-  id Int @id @default(autoincrement())
-}
-
-model Movie {
-  uuid        String   @unique
-  name        String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  id          Int      @id @default(autoincrement())
-  images      String[]
-  description String
-  genreId     Int      @map("genre_id")
-  genre       Genre    @relation(fields: [genreId], references: [id])
-}
-
-model Genre {
-  uuid      String   @unique
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  id        Int      @id @default(autoincrement())
-  movies    Movie[]
-}
-
-enum Role {
-  USER
-  ADMIN
-}
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-model User {
-  id        Int      @id @default(autoincrement())
-  uuid      String   @unique
+  id        Int      @id @default(autoincrement()) //dont want to give this info to the user
+  uuid      String   @unique @default(uuid())
+  password  String
   username  String   @unique
   email     String   @unique
-  firstName String
-  lastName  String
+  firstName String   @map("first_name") //dbs will have snake case
+  lastName  String   @map("last_name")
   avatar    String
-  hash      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   type      Role     @default(USER)
-  // orders    Order[] //1:M
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  orders    Order[] //1:M
+  vendor    Vendor? //1:1
+
+  @@map("users")
 }
 
-// model Vendor {
-//   id        Int      @id @default(autoincrement())
-//   uuid      String   @unique
-//   vendorName String  @unique
-//   email     String   @unique
-//   avatar    String
-//   hash      String
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   type      Role     @default(VENDOR)
-//   vendor_products  Vendor_Product[]
-// }
+model Vendor {
+  id             Int             @id @default(autoincrement())
+  uuid           String          @unique @default(uuid())
+  userId         Int             @unique @map("user_id")
+  name           String          @unique @map("vendor_name")
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
+  user           User            @relation(fields: [userId], references: [id]) //userId here should match the id in the User model
+  vendorProducts VendorProduct[]
+}
 
-// model Vendor_Product {
-//   id Int @id @default(autoincrement())
-//   uuid String @unique
-//   name String
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   images String[]
-//   description String
+model VendorProduct {
+  id         Int      @id @default(autoincrement())
+  uuid       String   @unique @default(uuid())
+  name       String
+  quantity   Int
+  categoryId Int      @map("category_id")
+  vendorId   Int      @map("vendor_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  category   Category @relation(fields: [categoryId], references: [id])
+  vendor     Vendor   @relation(fields: [vendorId], references: [id])
+  product    Product? //1:1
+}
 
-//   price Float
-//   quantity Int
+model Product {
+  id              Int            @id @default(autoincrement())
+  uuid            String         @unique @default(uuid())
+  name            String
+  description     String
+  images          String[]
+  price           Float
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  categoryId      Int            @map("category_id")
+  vendorProductId Int            @unique @map("vendor_product_id")
+  category        Category       @relation(fields: [categoryId], references: [id])
+  vendorProduct   VendorProduct  @relation(fields: [vendorProductId], references: [id]) //1:1
+  productOrders   ProductOrder[]
+}
 
-//   categoryId Int @map("category_id")
-//   category Category @relation(fields: [categoryId], references: [id])
-//   vendorId Int @map("vendor_id")
-//   vendor Vendor @relation(fields: [vendorId], references: [id])
-//   product Product?//1:1
-// }
+model Category {
+  id             Int             @id @default(autoincrement())
+  uuid           String          @unique @default(uuid())
+  name           String          @unique
+  products       Product[]
+  vendorProducts VendorProduct[] //1:M
+}
 
-// model Product {
-//   id Int @id @default(autoincrement())
-//   uuid String @unique
-//   name String
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   images String[]
-//   description String
-//   price Float
+model Order {
+  id            Int            @id @default(autoincrement())
+  uuid          String         @unique @default(uuid())
+  userId        Int            @map("user_id")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+  orderStatus   OrderStatus    @default(PLACED) @map("order_status")
+  user          User           @relation(fields: [userId], references: [id])
+  productOrders ProductOrder[]
+}
 
-//   categoryId Int @map("category_id")
-//   category Category @relation(fields: [categoryId], references: [id])
+model ProductOrder {
+  productId Int     @map("product_id")
+  orderId   Int     @map("order_id")
+  quantity  Int
+  product   Product @relation(fields: [productId], references: [id])
+  order     Order   @relation(fields: [orderId], references: [id])
 
-//   vendorProductId Int @map("vendor_product_id") @unique
-//   vendorProduct Vendor_Product @relation(fields: [vendorProductId], references: [id])//1:1
+  @@id([productId, orderId]) //composite key, the primary key is parts of keys from other tables
+}
 
-//   orders Order[]
-// }
-
-// model Category {
-//   id Int @id @default(autoincrement())
-//   uuid String @unique
-//   name String
-//   products Product[]
-//   vendorProducts Vendor_Product[]//1:M
-// }
-
-// model Order {
-//   id Int @id @default(autoincrement())
-//   userId Int @map("user_id")
-//   status OrderStatus @default(PLACED)
-//   user User @relation(fields: [userId], references: [id])
-//   productIds Int[] @map("product_ids")
-//   products Product[]
-
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-// }
-
-// enum OrderStatus {
-//   PLACED
-//   INTRANSIT
-//   COMPLETED
-//   CANCELLED
-// }
+enum OrderStatus {
+  PLACED
+  IN_TRANSIT
+  COMPLETED
+  CANCELLED
+}
 
 enum Role {
   USER
-  VENDOR
   ADMIN
 }

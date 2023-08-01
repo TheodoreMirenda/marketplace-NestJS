@@ -2,6 +2,80 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Category {
+  id: Float
+  uuid: String
+  name: String
+  orders: [Order!]
+}
+
+type Vendor {
+  id: Float
+  uuid: String
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type VendorProduct {
+  id: Float
+  uuid: String
+  name: String
+  quantity: Float
+  categoryId: Float
+  vendorId: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  category: Category
+  vendor: Vendor
+  product: Product
+}
+
+type Product {
+  id: Float
+  uuid: String
+  name: String
+  description: String
+  images: [String!]!
+  price: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  category: Category
+  vendorProduct: VendorProduct
+  productOrder: [ProductOrder!]
+}
+
+type ProductOrder {
+  productId: Float
+  orderId: Float
+  quantity: Float
+  product: Product
+  order: Order
+}
+
+type Order {
+  id: Float
+  uuid: String
+  userId: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  orderStatus: OrderStatus!
+  user: User!
+  productOrders: [ProductOrder!]
+}
+
+enum OrderStatus {
+  PLACED
+  IN_TRANSIT
+  COMPLETED
+  CANCELLED
+}
+
 type User {
   id: Float
   uuid: String
@@ -10,8 +84,11 @@ type User {
   firstName: String
   lastName: String
   username: String
+  avatar: String
   createdAt: DateTime
   updatedAt: DateTime
+  orders: [Order!]
+  vendor: Vendor
 }
 
 enum Role {
@@ -19,42 +96,19 @@ enum Role {
   ADMIN
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type LoginOutput {
   access_token: String!
   expiresAt: DateTime!
   user: User!
 }
 
-type Movie {
-  id: Float
-  uuid: String
-  name: String
-  description: String
-  images: [String!]
-  createdAt: DateTime
-  updatedAt: DateTime
-  genreId: Float
-  genre: Genre
-}
-
-type Genre {
-  id: Float
-  uuid: String
-  name: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  movies: [Movie!]
-}
-
 type Query {
   user(where: UserWhereUniqueInput!): User
-  genres: [Genre!]!
-  movies(skip: Int, take: Int, cursor: MovieWhereUniqueInput, orderBy: MovieOrderByInput, where: MovieWhereInput, search: SearchInput): [Movie!]!
+  category(where: CategoryWhereUniqueInput!): Category
+  Product(where: ProductWhereUniqueInput!): Product
+  vendor(where: VendorProductWhereUniqueInput!): VendorProduct
+  Order(where: OrderWhereUniqueInput!): Order
+  ProductOrder(where: ProductOrderWhereUniqueInput!): ProductOrder
 }
 
 input UserWhereUniqueInput {
@@ -63,44 +117,44 @@ input UserWhereUniqueInput {
   email: String
 }
 
-input MovieWhereUniqueInput {
-  id: Int
-  uuid: String
-}
-
-input MovieOrderByInput {
-  id: OrderByArg
-  uuid: OrderByArg
-  name: OrderByArg
-  description: OrderByArg
-  createdAt: OrderByArg
-  updatedAt: OrderByArg
-}
-
-enum OrderByArg {
-  ASC
-  DESC
-}
-
-input MovieWhereInput {
-  id: Int
+input CategoryWhereUniqueInput {
+  id: Float
   uuid: String
   name: String
-  description: String
-  createdAt: DateTime
-  updatedAt: DateTime
 }
 
-input SearchInput {
-  value: String!
+input ProductWhereUniqueInput {
+  id: Float!
+  uuid: String
+  vendorProductId: Float
+}
+
+input VendorProductWhereUniqueInput {
+  id: Float
+  uuid: String
+  name: String
+}
+
+input OrderWhereUniqueInput {
+  uuid: String
+  id: Float
+}
+
+input ProductOrderWhereUniqueInput {
+  productId: Float!
+  orderId: Float!
 }
 
 type Mutation {
   login(data: LoginUserInput!): LoginOutput!
   signup(data: SignUpInput!): User!
   createUser(data: UserCreateInput!): User!
-  createGenre(data: GenreCreateInput!): Genre!
-  createMovie(data: MovieCreateInput!): Movie!
+  createCategory(data: CategoryCreateInput!): Category!
+  createVendor(data: VendorCreateInput!): Vendor!
+  createProduct(data: ProductCreateInput!): Product!
+  createVendorProduct(data: VendorProductCreateInput!): VendorProduct!
+  createOrder(data: OrderCreateInput!): Order!
+  createProductOrder(data: ProductOrderCreateInput!): ProductOrder!
 }
 
 input LoginUserInput {
@@ -114,6 +168,7 @@ input SignUpInput {
   password: String!
   firstName: String!
   lastName: String!
+  avatar: String!
 }
 
 input UserCreateInput {
@@ -123,15 +178,93 @@ input UserCreateInput {
   password: String!
   firstName: String!
   lastName: String!
+  avatar: String!
 }
 
-input GenreCreateInput {
+input CategoryCreateInput {
   name: String!
 }
 
-input MovieCreateInput {
+input VendorCreateInput {
   name: String!
-  description: String
+  user: UserCreateNestedOneWithoutVendorInput!
+}
+
+input UserCreateNestedOneWithoutVendorInput {
+  connect: UserWhereUniqueInput!
+}
+
+input ProductCreateInput {
+  name: String!
+  description: String!
   images: [String!]!
-  genreId: Float!
+  price: Float!
+  category: CategoryCreateNestedOneWithoutProductsInput!
+  vendorProduct: VendorProductCreateNestedOneWithoutProductInput!
+}
+
+input CategoryCreateNestedOneWithoutProductsInput {
+  connect: CategoryWhereUniqueInput!
+}
+
+input VendorProductCreateNestedOneWithoutProductInput {
+  connect: VendorProductWhereUniqueInput!
+}
+
+input VendorProductCreateInput {
+  name: String!
+  quantity: Float!
+  category: CategoryCreateNestedOneWithoutVendorProductsInput!
+  vendor: VendorCreateNestedOneWithoutVendorProductsInput!
+}
+
+input CategoryCreateNestedOneWithoutVendorProductsInput {
+  connect: CategoryWhereUniqueInput!
+}
+
+input VendorCreateNestedOneWithoutVendorProductsInput {
+  connect: VendorWhereUniqueInput!
+}
+
+input VendorWhereUniqueInput {
+  id: Float
+  uuid: String
+  userId: String
+  vendorName: String
+}
+
+input OrderCreateInput {
+  user: UserCreateNestedOneWithoutOrdersInput!
+  productOrders: ProductOrderCreateNestedManyWithoutOrderInput!
+}
+
+input UserCreateNestedOneWithoutOrdersInput {
+  connect: UserWhereUniqueInput!
+}
+
+input ProductOrderCreateNestedManyWithoutOrderInput {
+  createMany: ProductOrderCreateManyOrderInputEnvelope!
+}
+
+input ProductOrderCreateManyOrderInputEnvelope {
+  data: [ProductOrderCreateManyOrderInput!]!
+}
+
+input ProductOrderCreateManyOrderInput {
+  productId: Float
+  quantity: Float
+}
+
+input ProductOrderCreateInput {
+  quantity: Float
+  product: ProductCreateNestedOneWithoutProductOrderInput!
+  order: OrderCreateNestedOneWithoutProductOrdersInput!
+}
+
+input ProductCreateNestedOneWithoutProductOrderInput {
+  connect: ProductWhereUniqueInput!
+}
+
+input OrderCreateNestedOneWithoutProductOrdersInput {
+  connect: OrderWhereUniqueInput!
 }

@@ -3,6 +3,10 @@ import { Category, CategorySelect } from './model';
 import { CategoryArgs, CategoryCreateInput } from './dto';
 import { CategoryService } from './category.service';
 import { GraphQLFields, IGraphQLFields } from '../../shared/decorators';
+import { UseGuards } from '@nestjs/common';
+import { Roles } from 'src/shared/decorators/roles';
+import { RolesGuard, JwtAuthGuard } from 'src/shared/auth/guards';
+import { Role } from '@prisma/client';
 
 @Resolver(() => Category)
 export class CategoryResolver {
@@ -17,6 +21,8 @@ export class CategoryResolver {
   }
 
   @Mutation(() => Category)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
   public async createCategory(
     @Args('data') data: CategoryCreateInput,
     @GraphQLFields() { fields }: IGraphQLFields<CategorySelect>,

@@ -3,6 +3,8 @@ import { Product, ProductSelect } from './model';
 import { ProductArgs, ProductCreateInput } from './dto';
 import { ProductService } from './product.service';
 import { GraphQLFields, IGraphQLFields } from '../../shared/decorators';
+import { JwtAuthGuard } from 'src/shared/auth/guards';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver(() => Product)
 export class ProductResolver {
@@ -17,6 +19,7 @@ export class ProductResolver {
   }
 
   @Mutation(() => Product)
+  @UseGuards(JwtAuthGuard)
   public async createProduct(
     @Args('data') data: ProductCreateInput,
     @GraphQLFields() { fields }: IGraphQLFields<ProductSelect>,

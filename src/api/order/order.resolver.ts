@@ -2,7 +2,9 @@ import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { Order, OrderSelect } from './model';
 import { OrderArgs, OrderCreateInput } from './dto';
 import { OrderService } from './order.service';
-import { GraphQLFields, IGraphQLFields } from '../../shared/decorators';
+import { GraphQLFields, IGraphQLFields } from 'src/shared/decorators'
+import { JwtAuthGuard } from 'src/shared/auth/guards';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver(() => Order)
 export class OrderResolver {
@@ -17,6 +19,7 @@ export class OrderResolver {
   }
 
   @Mutation(() => Order)
+  @UseGuards(JwtAuthGuard)
   public async createOrder(
     @Args('data') data: OrderCreateInput,
     @GraphQLFields() { fields }: IGraphQLFields<OrderSelect>,

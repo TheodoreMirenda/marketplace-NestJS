@@ -3,7 +3,8 @@ import { VendorProduct, VendorProductSelect } from './model';
 import { VendorProductArgs, VendorProductCreateInput } from './dto';
 import { VendorProductService } from './vendor-product.service';
 import { GraphQLFields, IGraphQLFields } from '../../shared/decorators';
-
+import { JwtAuthGuard } from 'src/shared/auth/guards';
+import { UseGuards } from '@nestjs/common';
 @Resolver(() => VendorProduct)
 export class VendorProductResolver {
   constructor(private readonly vendorService: VendorProductService) {}
@@ -17,6 +18,7 @@ export class VendorProductResolver {
   }
 
   @Mutation(() => VendorProduct)
+  @UseGuards(JwtAuthGuard)
   public async createVendorProduct(
     @Args('data') data: VendorProductCreateInput,
     @GraphQLFields() { fields }: IGraphQLFields<VendorProductSelect>,

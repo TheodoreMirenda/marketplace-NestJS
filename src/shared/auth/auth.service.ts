@@ -58,6 +58,21 @@ export class AuthService {
     }
   }
 
+  async checkUserRole(email: string, role: string): Promise<boolean | null> {
+    try {
+      const userRole = await this.userService.findUserRole({
+        where: { email },
+      });
+      console.log(role);
+      console.log(userRole);
+
+      return role === userRole;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   async login(email: string, password: string, fields: LoginOutputSelect) {
 
     const userPassword = await this.userService.findUserPassword({

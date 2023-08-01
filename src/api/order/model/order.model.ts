@@ -1,7 +1,7 @@
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { OrderStatus } from '@prisma/client';
 import { User } from 'src/api/user/model/user.model';
-import { ProductOrder } from 'src/api/product-order/model/product-order.model'
+import { ProductOrder } from 'src/api/product-order/model'
 
 @ObjectType()
 export class Order {

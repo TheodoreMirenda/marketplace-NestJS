@@ -107,7 +107,7 @@ type Query {
   category(where: CategoryWhereUniqueInput!): Category
   Product(where: ProductWhereUniqueInput!): Product
   vendor(where: VendorProductWhereUniqueInput!): VendorProduct
-  Order(where: OrderWhereUniqueInput!): Order
+  order(where: OrderWhereUniqueInput!): Order
   ProductOrder(where: ProductOrderWhereUniqueInput!): ProductOrder
 }
 
@@ -234,12 +234,7 @@ input VendorWhereUniqueInput {
 }
 
 input OrderCreateInput {
-  user: UserCreateNestedOneWithoutOrdersInput!
   productOrders: ProductOrderCreateNestedManyWithoutOrderInput!
-}
-
-input UserCreateNestedOneWithoutOrdersInput {
-  connect: UserWhereUniqueInput!
 }
 
 input ProductOrderCreateNestedManyWithoutOrderInput {

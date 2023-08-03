@@ -2,13 +2,11 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { Role } from '@prisma/client';
-import { UserService } from 'src/api/user/user.service';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    private userService: UserService
     ) {}
 
     async canActivate(context: ExecutionContext) : Promise<boolean> {

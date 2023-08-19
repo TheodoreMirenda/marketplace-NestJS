@@ -17,6 +17,14 @@ export class ProductService {
     });
   }
 
+  public async findMany(
+    { select }: ProductSelect,
+  ): Promise<Product[]> {
+    return this.prismaService.product.findMany({
+      select,
+    });
+  }
+
   public async create(
     data: ProductCreateInput,
     { select }: ProductSelect,

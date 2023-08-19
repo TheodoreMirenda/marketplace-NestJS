@@ -18,6 +18,13 @@ export class ProductResolver {
     return this.userService.findOne(args, fields);
   }
 
+  @Query(() => [Product])
+  public async Products(
+    @GraphQLFields() { fields }: IGraphQLFields<ProductSelect>,
+  ): Promise<Product[]> {
+    return this.userService.findMany(fields);
+  }
+
   @Mutation(() => Product)
   @UseGuards(JwtAuthGuard)
   public async createProduct(

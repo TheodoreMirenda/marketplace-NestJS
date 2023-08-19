@@ -94,6 +94,7 @@ type User {
 enum Role {
   USER
   ADMIN
+  VENDOR
 }
 
 type LoginOutput {
@@ -106,6 +107,7 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   category(where: CategoryWhereUniqueInput!): Category
   Product(where: ProductWhereUniqueInput!): Product
+  Products: [Product!]!
   vendor(where: VendorProductWhereUniqueInput!): VendorProduct
   order(where: OrderWhereUniqueInput!): Order
   ProductOrder(where: ProductOrderWhereUniqueInput!): ProductOrder

@@ -108,7 +108,8 @@ type Query {
   category(where: CategoryWhereUniqueInput!): Category
   categories: [Category!]!
   Product(where: ProductWhereUniqueInput!): Product
-  Products: [Product!]!
+  getProducts(where: ProductWhereInput!): [Product!]!
+  getProductsAll: [Product!]!
   vendor(where: VendorProductWhereUniqueInput!): VendorProduct
   order(where: OrderWhereUniqueInput!): Order
   ProductOrder(where: ProductOrderWhereUniqueInput!): ProductOrder
@@ -130,6 +131,13 @@ input ProductWhereUniqueInput {
   id: Float!
   uuid: String
   vendorProductId: Float
+}
+
+input ProductWhereInput {
+  id: Float
+  uuid: String
+  vendorProductId: Float
+  categoryId: Float
 }
 
 input VendorProductWhereUniqueInput {

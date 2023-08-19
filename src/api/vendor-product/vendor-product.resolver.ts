@@ -18,7 +18,7 @@ export class VendorProductResolver {
   }
 
   @Mutation(() => VendorProduct)
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   public async createVendorProduct(
     @Args('data') data: VendorProductCreateInput,
     @GraphQLFields() { fields }: IGraphQLFields<VendorProductSelect>,

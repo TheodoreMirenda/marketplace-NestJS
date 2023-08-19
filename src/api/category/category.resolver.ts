@@ -20,6 +20,13 @@ export class CategoryResolver {
     return this.categoryService.findOne(args, fields);
   }
 
+  @Query(() => [Category])
+  public async categories(
+    @GraphQLFields() { fields }: IGraphQLFields<CategorySelect>,
+  ): Promise<Category[]> {
+    return this.categoryService.findMany(fields);
+  }
+
   @Mutation(() => Category)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN)

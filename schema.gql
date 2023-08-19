@@ -106,6 +106,7 @@ type LoginOutput {
 type Query {
   user(where: UserWhereUniqueInput!): User
   category(where: CategoryWhereUniqueInput!): Category
+  categories: [Category!]!
   Product(where: ProductWhereUniqueInput!): Product
   Products: [Product!]!
   vendor(where: VendorProductWhereUniqueInput!): VendorProduct

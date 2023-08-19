@@ -17,6 +17,14 @@ export class CategoryService {
     });
   }
 
+  public async findMany(
+    { select }: CategorySelect,
+  ): Promise<Category[]> {
+    return this.prismaService.category.findMany({
+      select,
+    });
+  }
+
   public async create(
     data: CategoryCreateInput,
     { select }: CategorySelect,

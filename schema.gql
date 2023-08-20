@@ -128,15 +128,12 @@ input CategoryWhereUniqueInput {
 }
 
 input ProductWhereUniqueInput {
-  id: Float!
+  id: Float
   uuid: String
   vendorProductId: Float
 }
 
 input ProductWhereInput {
-  id: Float
-  uuid: String
-  vendorProductId: Float
   categoryId: Float
 }
 

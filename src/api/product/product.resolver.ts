@@ -1,6 +1,6 @@
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { Product, ProductSelect } from './model';
-import { ProductArgs, ProductCreateInput, ProductArgsOther } from './dto';
+import { ProductArgs, ProductCreateInput, ProductsArgs } from './dto';
 import { ProductService } from './product.service';
 import { GraphQLFields, IGraphQLFields } from '../../shared/decorators';
 import { JwtAuthGuard } from 'src/shared/auth/guards';
@@ -11,7 +11,7 @@ export class ProductResolver {
   constructor(private readonly productService: ProductService) {}
 
   @Query(() => Product,{nullable:true})
-  public async Product(
+  public async product(
     @Args() args: ProductArgs,
     @GraphQLFields() { fields }: IGraphQLFields<ProductSelect>,
   ): Promise<Product | null> {
@@ -19,18 +19,11 @@ export class ProductResolver {
   }
 
   @Query(() => [Product])
-  public async getProducts(
-    @Args() args: ProductArgsOther,
+  public async products(
+    @Args() args: ProductsArgs,
     @GraphQLFields() { fields }: IGraphQLFields<ProductSelect>,
   ): Promise<Product[]> {
     return this.productService.findMany(args, fields);
-  }
-
-  @Query(() => [Product])
-  public async getProductsAll(
-    @GraphQLFields() { fields }: IGraphQLFields<ProductSelect>,
-  ): Promise<Product[]> {
-    return this.productService.findAll(fields);
   }
 
   @Mutation(() => Product)

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Product, ProductSelect } from './model';
 import { ProductArgs, ProductCreateInput } from './dto';
 import { PrismaService } from 'src/shared/datasource/prisma/prisma.service';
-import { ProductArgsOther } from './dto';
+import { ProductsArgs } from './dto';
 
 @Injectable()
 export class ProductService {
@@ -19,19 +19,11 @@ export class ProductService {
   }
 
   public async findMany(
-    { where }: ProductArgsOther,
+    { where }: ProductsArgs,
     { select }: ProductSelect,
   ): Promise<Product[]> {
     return this.prismaService.product.findMany({
       where,
-      select,
-    });
-  }
-
-  public async findAll(
-    { select }: ProductSelect,
-  ): Promise<Product[]> {
-    return this.prismaService.product.findMany({
       select,
     });
   }

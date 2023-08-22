@@ -96,7 +96,10 @@ export class AuthService {
           email: true, //fetching these beacuse I will need them below   //research smart endpoints
           uuid: true,
           type: true,
-          ...fields.select.user.select,
+          username: true,
+          updatedAt: true,
+          createdAt: true,
+          lastName: true,
         },
       },
     );
@@ -106,9 +109,9 @@ export class AuthService {
         email: user.email,
         sub: user.uuid,
         role: user.type,
-        expiresIn: 60 * 5,
+        expiresIn: 60 * 60,//1 hour
       }),
-      expiresAt: new Date(Date.now() + 60 * 5),
+      expiresAt: new Date(Date.now() + 60 * 60),
       user,
     };
   }

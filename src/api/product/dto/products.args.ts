@@ -1,8 +1,8 @@
 import { ArgsType, Field } from '@nestjs/graphql';
-import { ProductWhereInput } from './product-where-unique.input';
+import { ProductWhereInput } from './product-where.input';
 
 @ArgsType()
-export class ProductArgsOther {
+export class ProductsArgs {
   @Field(() => ProductWhereInput)
   where?: ProductWhereInput;
 }

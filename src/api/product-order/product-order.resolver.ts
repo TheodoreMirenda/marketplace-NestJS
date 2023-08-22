@@ -9,7 +9,7 @@ export class ProductOrderResolver {
   constructor(private readonly userService: ProductOrderService) {}
 
   @Query(() => ProductOrder,{nullable:true})
-  public async ProductOrder(
+  public async productOrder(
     @Args() args: ProductOrderArgs,
     @GraphQLFields() { fields }: IGraphQLFields<ProductOrderSelect>,
   ): Promise<ProductOrder | null> {

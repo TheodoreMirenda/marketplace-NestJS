@@ -34,7 +34,6 @@ export const GraphQLFields: () => ParameterDecorator = createParamDecorator(
   (_: unknown, context: ExecutionContext) => {
     const ctx = GqlExecutionContext.create(context);
     const fields = parsePrismaSelect(graphqlFields(ctx.getInfo()));
-
     return { fields };
   },
 );

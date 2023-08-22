@@ -107,12 +107,11 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   category(where: CategoryWhereUniqueInput!): Category
   categories: [Category!]!
-  Product(where: ProductWhereUniqueInput!): Product
-  getProducts(where: ProductWhereInput!): [Product!]!
-  getProductsAll: [Product!]!
+  product(where: ProductWhereUniqueInput!): Product
+  products(where: ProductWhereInput!): [Product!]!
   vendor(where: VendorProductWhereUniqueInput!): VendorProduct
   order(where: OrderWhereUniqueInput!): Order
-  ProductOrder(where: ProductOrderWhereUniqueInput!): ProductOrder
+  productOrder(where: ProductOrderWhereUniqueInput!): ProductOrder
 }
 
 input UserWhereUniqueInput {

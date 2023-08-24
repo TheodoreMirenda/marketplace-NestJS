@@ -3,6 +3,7 @@ import { User, UserSelect } from './model';
 import { UserArgs, UserCreateInput } from './dto';
 import { UserService } from './user.service';
 import { GraphQLFields, IGraphQLFields } from '../../shared/decorators';
+import { UserUpdateInput } from './dto/user-update.input';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -22,5 +23,14 @@ export class UserResolver {
     @GraphQLFields() { fields }: IGraphQLFields<UserSelect>,
   ): Promise<User> {
     return this.userService.create(data, fields);
+  }
+
+  @Mutation(() => User)
+  public async userUpdate(
+    @Args() args: UserArgs,
+    @Args('data') data: UserUpdateInput,
+    @GraphQLFields() { fields }: IGraphQLFields<UserSelect>,
+  ): Promise<User> {
+    return this.userService.update(args, data, fields);
   }
 }

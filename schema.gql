@@ -166,6 +166,7 @@ type Mutation {
   login(data: LoginUserInput!): LoginOutput!
   signup(data: SignUpInput!): User!
   createUser(data: UserCreateInput!): User!
+  userUpdate(where: UserWhereUniqueInput!, data: UserUpdateInput!): User!
   createCategory(data: CategoryCreateInput!): Category!
   createVendor(data: VendorCreateInput!): Vendor!
   createProduct(data: ProductCreateInput!): Product!
@@ -196,6 +197,16 @@ input UserCreateInput {
   firstName: String!
   lastName: String!
   avatar: String!
+}
+
+input UserUpdateInput {
+  type: Role
+  email: String
+  username: String
+  password: String
+  firstName: String
+  lastName: String
+  avatar: String
 }
 
 input CategoryCreateInput {

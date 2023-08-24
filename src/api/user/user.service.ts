@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User, UserSelect } from './model';
 import { UserArgs, UserCreateInput } from './dto';
 import { PrismaService } from 'src/shared/datasource/prisma/prisma.service';
+import { UserUpdateInput } from './dto/user-update.input';
 
 @Injectable()
 export class UserService {
@@ -29,6 +30,18 @@ export class UserService {
     { select }: UserSelect,
   ): Promise<User> {
     return this.prismaService.user.create({
+      data,
+      select,
+    });
+  }
+
+  public async update(
+    { where }: UserArgs,
+    data : UserUpdateInput,
+    { select }: UserSelect,
+    ): Promise<User> {
+    return this.prismaService.user.update({
+      where,
       data,
       select,
     });

@@ -108,7 +108,7 @@ type Query {
   category(where: CategoryWhereUniqueInput!): Category
   categories: [Category!]!
   product(where: ProductWhereUniqueInput!): Product
-  products(where: ProductWhereInput!): [Product!]!
+  products(where: ProductWhereInput, orderBy: ProductOrderByWithRelationInput): [Product!]!
   vendor(where: VendorProductWhereUniqueInput!): VendorProduct
   order(where: OrderWhereUniqueInput!): Order
   productOrder(where: ProductOrderWhereUniqueInput!): ProductOrder
@@ -134,6 +134,16 @@ input ProductWhereUniqueInput {
 
 input ProductWhereInput {
   categoryId: Float
+}
+
+input ProductOrderByWithRelationInput {
+  price: OrderByArg
+  name: OrderByArg
+}
+
+enum OrderByArg {
+  ASC
+  DESC
 }
 
 input VendorProductWhereUniqueInput {

@@ -9,7 +9,6 @@ import { ProductWhereUniqueInput } from './product-where-unique.input';
 export class ProductCreateInput {
   @Field(() => String)
   name: string;
-  @MaxLength(60)
   @Field(() => String)
   description: string;
   @Field(() => [String])

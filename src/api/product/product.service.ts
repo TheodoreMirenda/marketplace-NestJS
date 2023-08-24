@@ -19,10 +19,11 @@ export class ProductService {
   }
 
   public async findMany(
-    { where }: ProductsArgs,
+    { where , orderBy}: ProductsArgs,
     { select }: ProductSelect,
   ): Promise<Product[]> {
     return this.prismaService.product.findMany({
+      orderBy,
       where,
       select,
     });
@@ -38,3 +39,5 @@ export class ProductService {
     });
   }
 }
+// orderBy:{
+//   field:price, direction:ASC

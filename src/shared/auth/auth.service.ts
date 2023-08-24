@@ -100,6 +100,8 @@ export class AuthService {
           updatedAt: true,
           createdAt: true,
           lastName: true,
+          firstName: true,
+          avatar: true,
         },
       },
     );

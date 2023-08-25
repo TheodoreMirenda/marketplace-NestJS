@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { Role } from '@prisma/client';
-import { IsEmail, MaxLength, MinLength } from 'class-validator';
+import { IsEmail, IsOptional, MaxLength, MinLength } from 'class-validator';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
@@ -24,8 +24,10 @@ export class UserCreateInput {
   @MaxLength(60)
   @Field(() => String)
   lastName: string;
-  @Field(() => String)
-  avatar: string;
+
+  @IsOptional()
+  @Field(() => String, { nullable: true })
+  avatar?: string;
 }
 
 @InputType()

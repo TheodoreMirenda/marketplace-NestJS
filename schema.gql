@@ -186,7 +186,7 @@ input SignUpInput {
   password: String!
   firstName: String!
   lastName: String!
-  avatar: String!
+  avatar: String
 }
 
 input UserCreateInput {
@@ -196,7 +196,7 @@ input UserCreateInput {
   password: String!
   firstName: String!
   lastName: String!
-  avatar: String!
+  avatar: String
 }
 
 input UserUpdateInput {

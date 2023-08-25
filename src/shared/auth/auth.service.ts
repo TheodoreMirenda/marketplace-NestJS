@@ -80,8 +80,9 @@ export class AuthService {
         email,
       },
     });
+    const passwordMatchesHash = await bcrypt.compare(password, userPassword)
 
-    if (userPassword != password) {
+    if (!passwordMatchesHash) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
@@ -126,7 +127,7 @@ export class AuthService {
     });
 
     if (userPassword) {
-      throw new Error('User already exists!');
+      throw new Error('User with that email already exists!');
     }
 
     const password = await bcrypt.hash(signUpInput.password, 10);

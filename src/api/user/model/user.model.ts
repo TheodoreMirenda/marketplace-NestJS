@@ -2,6 +2,7 @@ import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Order } from 'src/api/order/model/order.model';
 import { Vendor } from 'src/api/vendor/model/vendor.model';
 import { Role } from '@prisma/client';
+import { IsOptional } from 'class-validator';
 
 @ObjectType()//this is all the stuff that can be returned from the graphql api
 export class User {
@@ -19,6 +20,7 @@ export class User {
   lastName?: string;
   @Field(() => String, { nullable: true })
   username?: string;
+  @IsOptional()
   @Field(() => String, { nullable: true })
   avatar?: string;
 

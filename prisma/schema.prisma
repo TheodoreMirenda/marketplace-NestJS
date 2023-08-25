@@ -15,7 +15,7 @@ model User {
   email     String   @unique
   firstName String   @map("first_name") //dbs will have snake case
   lastName  String   @map("last_name")
-  avatar    String
+  avatar    String    @default("https://res.cloudinary.com/dx3a3kduf/image/upload/v1620826263/avatars/default-avatar.png")
   type      Role     @default(USER)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

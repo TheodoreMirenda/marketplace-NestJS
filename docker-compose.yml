@@ -1,14 +1,30 @@
 version: '3.8'
 services:
-  dev-db:
+  marketplace-api:
+      container_name: marketplace-api
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - 8080:8080
+      depends_on:
+        - postgres
+      env_file:
+        - .env
+        
+  postgres:
     image: postgres:13
+    container_name: postgres
+    restart: always
     ports:
-      - 5434:5432
+      - 5432:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: fish_db
-    networks:
-      - tjnetwork
-networks:
-  tjnetwork:
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+volumes:
+  postgres:
+    name: nest-db

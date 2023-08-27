@@ -1,16 +1,18 @@
 version: '3.8'
 services:
   marketplace-api:
-      container_name: marketplace-api
-      build:
-        context: .
-        dockerfile: Dockerfile
-      ports:
-        - 8080:8080
-      depends_on:
-        - postgres
-      env_file:
-        - .env
+    container_name: marketplace-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    networks:
+      - thefishnetwork
         
   postgres:
     image: postgres:13
@@ -24,7 +26,14 @@ services:
       POSTGRES_DB: fish_db
     volumes:
       - postgres:/var/lib/postgresql/data
+    networks:
+      - thefishnetwork
 
 volumes:
   postgres:
     name: nest-db
+
+networks:
+  thefishnetwork:
+    driver: bridge
+    external: true
